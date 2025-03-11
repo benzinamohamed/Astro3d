@@ -12,11 +12,9 @@ import SolarSystem from '@/components/ui/SolarSystem';
 
 export function ThreeDCardDemo({ shouldMove, children }: { shouldMove: boolean, children: React.ReactNode }) {
   return (
-    <CardContainer className="max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
-      <CardBody className={` backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl p-6 transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
-        <CardItem >
+    <CardContainer className=" max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
+      <CardBody className={` backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl p-4 transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
           {children}
-        </CardItem>
       </CardBody>
     </CardContainer>
   );
@@ -117,13 +115,13 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={2} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <Suspense fallback={<Html><div>Loading...</div></Html>}>
         <Model />
         <Html  
         className='w-screen flex justify-center'  center position={[1, 0, 200]} >
-        <div  ref={Tab1Ref}  className={` w-[60%]  transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
+        <div     ref={Tab1Ref}  className={` w-[60%]  transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
            <ThreeDCardDemo shouldMove={shouldMove && scaleTab1} >
                                 <SolarSystem></SolarSystem>
             </ThreeDCardDemo></div>
