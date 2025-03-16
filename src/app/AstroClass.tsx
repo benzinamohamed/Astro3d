@@ -8,12 +8,17 @@ import * as THREE from 'three';
 import { Html ,OrbitControls } from '@react-three/drei';
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Image from "next/image";
-import SolarSystem from '@/components/ui/SolarSystem';
+import SolarSystem, { CarouselDemo } from '@/components/ui/SolarSystem';
+import EmblaCarousel from '@/components/ui/carousel';
+import MainTab from './tabs/MainTab';
+
+
+
 
 export function ThreeDCardDemo({ shouldMove, children }: { shouldMove: boolean, children: React.ReactNode }) {
   return (
-    <CardContainer className=" max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
-      <CardBody className={` backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl p-4 transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
+    <CardContainer className="pointer-events-none max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
+      <CardBody className={`pointer-events-auto overflow-hidden backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl  transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
           {children}
       </CardBody>
     </CardContainer>
@@ -47,6 +52,7 @@ function Scene() {
   const [shouldMove , setShouldMove] = useState(false);
   //const {camera , } = useThree();
 
+
   const handleMouseMove = (event) => {
     mouse.current.x = (event.clientX / window.innerWidth)*2 +9 ;
     mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -57,6 +63,12 @@ function Scene() {
       setShouldMove(scaleTab1 || scaleTab2|| scaleTab3);
     }
   };
+
+
+ 
+
+ 
+
 
   React.useEffect(() => {
     window.addEventListener('keydown', handleEnterButton);
@@ -120,16 +132,15 @@ function Scene() {
       <Suspense fallback={<Html><div>Loading...</div></Html>}>
         <Model />
         <Html  
-        className='w-screen flex justify-center'  center position={[1, 0, 200]} >
-        <div     ref={Tab1Ref}  className={` w-[60%]  transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
+        className='w-screen flex justify-center  pointer-events-none '  center position={[1, 0, 200]}  >
+        <div     ref={Tab1Ref}  className={`pointer-events-none  w-[60%] transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
            <ThreeDCardDemo shouldMove={shouldMove && scaleTab1} >
-                                <SolarSystem></SolarSystem>
+            <MainTab/>
             </ThreeDCardDemo></div>
         </Html>
-        <Html className='w-screen flex justify-center' center position={[750, 0, 200]}  rotation={[0, 0, Math.PI / 4]}>
+        <Html  className='w-screen flex justify-center' center position={[750, 0, 200]}  rotation={[0, 0, Math.PI / 4]}>
          <div ref={Tab2Ref} className={`w-[60%]  transition-transform duration-100 ease-out ${scaleTab2 ? 'scale-[1.5]' : 'scale-[1]'}`} > 
           <ThreeDCardDemo shouldMove={shouldMove && scaleTab2}>
-            
             </ThreeDCardDemo> </div>
         </Html>
         <Html  
@@ -138,6 +149,7 @@ function Scene() {
           <ThreeDCardDemo shouldMove={shouldMove && scaleTab3} >
             </ThreeDCardDemo></div>
         </Html>
+      
       </Suspense>
     </>
   );
