@@ -51,7 +51,7 @@ const EmblaCarousel = ({planet ,setPlanet} :{planet : string ,setPlanet : React.
   }, [emblaApi, onSelect]);
 
   return (
-    <div className=" h-fit relative w-full max-w-5xl mx-auto px-4 ">
+    <div className=" h-fit relative w-full max-w-5xl mx-auto px-4 pb-2">
       <button
         className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full  hover:bg-white/30 transition-colors z-10"
         onClick={scrollPrev}

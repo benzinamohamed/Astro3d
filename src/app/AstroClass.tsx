@@ -1,24 +1,23 @@
 "use client";
 
 import React, { Suspense, useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import * as THREE from 'three';
-import { Html ,OrbitControls } from '@react-three/drei';
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import Image from "next/image";
-import SolarSystem, { CarouselDemo } from '@/components/ui/SolarSystem';
-import EmblaCarousel from '@/components/ui/carousel';
+import { Html  } from '@react-three/drei';
+import { CardBody, CardContainer } from "@/components/ui/3d-card";
 import MainTab from './tabs/MainTab';
+import { Pointer } from "@/components/magicui/pointer";
+import WebIntro from './WebIntro';
 
 
 
 
 export function ThreeDCardDemo({ shouldMove, children }: { shouldMove: boolean, children: React.ReactNode }) {
   return (
-    <CardContainer className="pointer-events-none max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
-      <CardBody className={`pointer-events-auto overflow-hidden backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl  transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
+    
+   <CardContainer className="cursor-none pointer-events-none max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
+      <CardBody className={`cursor-none pointer-events-auto overflow-hidden backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl  transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
           {children}
       </CardBody>
     </CardContainer>
@@ -41,16 +40,15 @@ function Model() {
 
 function Scene() {
   const cameraRef = useRef();
-  const mouse = useRef({ x: 11, y: 0});
-  const Tab1Ref = useRef();
-  const Tab2Ref = useRef();
-  const Tab3Ref = useRef();
+  const mouse = useRef({ x: 10, y: 0});
+  const Tab1Ref = useRef(null);
+  const Tab2Ref = useRef(null);
+  const Tab3Ref = useRef(null);
 
   const [scaleTab1, setScaleTab1] = useState(false);
   const [scaleTab2, setScaleTab2] = useState(false);
   const [scaleTab3 , setScaleTab3] = useState(false);
   const [shouldMove , setShouldMove] = useState(false);
-  //const {camera , } = useThree();
 
 
   const handleMouseMove = (event) => {
@@ -92,6 +90,7 @@ function Scene() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+
   useFrame(({ camera }) => {
     cameraRef.current = camera;
     if(!shouldMove){
@@ -129,11 +128,11 @@ function Scene() {
     <>
       <ambientLight intensity={2} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
-      <Suspense fallback={<Html><div>Loading...</div></Html>}>
+      <Suspense fallback={<Html ><div>Loading...</div></Html>}>
         <Model />
-        <Html  
-        className='w-screen flex justify-center  pointer-events-none '  center position={[1, 0, 200]}  >
-        <div     ref={Tab1Ref}  className={`pointer-events-none  w-[60%] transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
+        <Html  className='w-screen flex justify-center  pointer-events-none '  center position={[1, 0, 200]}  >
+        <div ref={Tab1Ref}  className={`pointer-events-none  w-[60%] transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
+          
            <ThreeDCardDemo shouldMove={shouldMove && scaleTab1} >
             <MainTab/>
             </ThreeDCardDemo></div>
@@ -156,14 +155,30 @@ function Scene() {
 }
 
 export default function Astro() {
+  const [showIntro, setShowIntro] = useState(true);
   return (
-    <div style={{ width: '100%', height: '100vh' }} className="cursor-[url('/pngegg.png%')]">
+    <div style={{ width: '100%', height: '100vh' }} >
+                <Pointer>
+              <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="12" cy="12" r="10" className="fill-gray-400" />
+                    <circle cx="12" cy="12" r="5" className="fill-white" />
+              </svg>
+                </Pointer>
+                {showIntro ? (
+        <WebIntro onFinish={() => setShowIntro(false)} />
+      ) :(
+
       <Canvas
-        camera={{ position: [0, 1, 3], fov: 85 ,}} 
-        
-      >
+        camera={{ position: [0, 1, 3], fov: 85 ,}} >
         <Scene />
       </Canvas>
+      )}
     </div>
   );
 }
