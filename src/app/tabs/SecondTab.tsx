@@ -2,7 +2,7 @@
 import { CardItem } from '@/components/ui/3d-card';
 import React, { useEffect } from 'react'
 import useSWR from "swr";
-
+import Image from 'next/image'
 
  function SecondTab() {
   const fetcher = async (url: string): Promise<any> => {
@@ -17,6 +17,7 @@ import useSWR from "swr";
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
+
 
 
   const features1 = data.results.map((post , index)=>({
@@ -36,26 +37,22 @@ import useSWR from "swr";
   return (
     <div className="w-full h-full grid grid-cols-5 gap-2 p-2">
     {features1.map((post, index) => (
-      <div
+      <a
         key={index}
-        className={`rounded-xl relative overflow-hidden ${
+        className={`bg-black/30 rounded-xl relative overflow-hidden ${
           index === 0 || index === 3 ? "col-span-3" : "col-span-2"
-        } h-full flex items-center  duration-300 justify-start  group`}
-      >
+        } h-full flex flex-col items-center  duration-300 justify-start p-1 group hover:bg-white/30  selct-none cursor-none`}
+    href={post.href}
+    target="_blank"
+    >
        
-        <div 
-          className="absolute inset-0 transition-all duration-300 bg-cover group group-hover:blur-md"
-          style={{backgroundColor: "black", backgroundImage: `url('${post.background}')`}}
-        ></div>
-        
+       <div  className='w-[98%] h-[55%] rounded-xl bg-cover group-hover:scale-125 duration-300 overflow-auto' style={{backgroundImage : `url(${post.background})`}}  ></div>
        
-        <div className="relative z-10">
-          <h1 className="text-white text-center font-bold group-hover:-translate-y-10 duration-200">{post.name}</h1>
-          <div className='absolute top-28 group-hover:-translate-y-10  w-7xl h-52 duration-300'>
-           <button className='rounded-xl w-[10%] h-[16%] bg-black shadow-2xl text-white'>Learn More</button>
-           </div>
+        <div className="flex gap-2 flex-col justify-start items-start h-[60%]">
+          <h1 className="text-white font-bold z-[99999] text-balance  ">{post.name}</h1>
+         <p className='text-white text-sm text-balance opacity-40   group-hover:blure-none'>{post.description}</p>
         </div>
-      </div>
+      </a>
     ))}
   </div>
   

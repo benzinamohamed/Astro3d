@@ -43,7 +43,7 @@ function Scene() {
   const mouse = useRef({ x: 10, y: 0});
   const Tab1Ref = useRef(null);
   const Tab2Ref = useRef(null);
-  //const Tab3Ref = useRef(null);
+  const Tab3Ref = useRef(null);
 
   const [scaleTab1, setScaleTab1] = useState(false);
   const [scaleTab2, setScaleTab2] = useState(false);
@@ -99,7 +99,7 @@ function Scene() {
   });
 
   useFrame(({camera}) => {
-    if (Tab1Ref.current || Tab2Ref.current) {
+    if (Tab1Ref.current || Tab2Ref.current || Tab3Ref.current) {
        if(camera.rotation.y >14.9 && camera.rotation.y <16.3 ){
         setScaleTab1(true);
        }else {
@@ -144,12 +144,12 @@ function Scene() {
         </Html>
         <Html  
          center position={[-750, 0, 200]} className='w-screen  flex justify-center'>
-        {/* 
+     
         <div ref={Tab3Ref} className={`w-[60%] transition-transform duration-100 ease-out ${scaleTab3 ? 'scale-[1.5]' : 'scale-[1]'}`}> 
           <ThreeDCardDemo shouldMove={shouldMove && scaleTab3}>
           </ThreeDCardDemo>
         </div> 
-        */}
+      _
         </Html>
       
       </Suspense>
