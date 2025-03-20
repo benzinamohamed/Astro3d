@@ -8,7 +8,8 @@ import { Html  } from '@react-three/drei';
 import { CardBody, CardContainer } from "@/components/ui/3d-card";
 import MainTab from './tabs/MainTab';
 import { Pointer } from "@/components/magicui/pointer";
-import WebIntro from './WebIntro';
+import WebIntro from '../components/ui/WebIntro';
+import SecondTab from './tabs/SecondTab';
 
 
 
@@ -39,11 +40,10 @@ function Model() {
 }
 
 function Scene() {
-  const cameraRef = useRef();
   const mouse = useRef({ x: 10, y: 0});
   const Tab1Ref = useRef(null);
   const Tab2Ref = useRef(null);
-  const Tab3Ref = useRef(null);
+  //const Tab3Ref = useRef(null);
 
   const [scaleTab1, setScaleTab1] = useState(false);
   const [scaleTab2, setScaleTab2] = useState(false);
@@ -51,12 +51,12 @@ function Scene() {
   const [shouldMove , setShouldMove] = useState(false);
 
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: MouseEvent) => {
     mouse.current.x = (event.clientX / window.innerWidth)*2 +9 ;
     mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
   };
 
-  const handleEnterButton = (event) => {
+  const handleEnterButton = (event : KeyboardEvent) => {
     if (event.key === 'Enter') {
       setShouldMove(scaleTab1 || scaleTab2|| scaleTab3);
     }
@@ -74,7 +74,7 @@ function Scene() {
   }, [scaleTab1, scaleTab2 ,scaleTab3]);
 
 
-  const handleEscButton = (event) => {
+  const handleEscButton = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && shouldMove) {
       setShouldMove(false);
     }
@@ -92,7 +92,6 @@ function Scene() {
 
 
   useFrame(({ camera }) => {
-    cameraRef.current = camera;
     if(!shouldMove){
     camera.rotation.y = mouse.current.x * Math.PI * 0.5; 
     camera.rotation.x = mouse.current.y * Math.PI * 0; 
@@ -140,13 +139,17 @@ function Scene() {
         <Html  className='w-screen flex justify-center' center position={[750, 0, 200]}  rotation={[0, 0, Math.PI / 4]}>
          <div ref={Tab2Ref} className={`w-[60%]  transition-transform duration-100 ease-out ${scaleTab2 ? 'scale-[1.5]' : 'scale-[1]'}`} > 
           <ThreeDCardDemo shouldMove={shouldMove && scaleTab2}>
+            <SecondTab/>
             </ThreeDCardDemo> </div>
         </Html>
         <Html  
          center position={[-750, 0, 200]} className='w-screen  flex justify-center'>
-        <div  ref={Tab3Ref}  className={`w-[60%]  transition-transform duration-100 ease-out ${scaleTab3 ? 'scale-[1.5]' : 'scale-[1]'}`}> 
-          <ThreeDCardDemo shouldMove={shouldMove && scaleTab3} >
-            </ThreeDCardDemo></div>
+        {/* 
+        <div ref={Tab3Ref} className={`w-[60%] transition-transform duration-100 ease-out ${scaleTab3 ? 'scale-[1.5]' : 'scale-[1]'}`}> 
+          <ThreeDCardDemo shouldMove={shouldMove && scaleTab3}>
+          </ThreeDCardDemo>
+        </div> 
+        */}
         </Html>
       
       </Suspense>

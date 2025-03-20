@@ -51,9 +51,9 @@ const EmblaCarousel = ({planet ,setPlanet} :{planet : string ,setPlanet : React.
   }, [emblaApi, onSelect]);
 
   return (
-    <div className=" h-fit relative w-full max-w-5xl mx-auto px-4 pb-2">
+    <div className="select-none h-fit relative w-full max-w-5xl mx-auto px-4 pb-2">
       <button
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full  hover:bg-white/30 transition-colors z-10"
+        className="cursor-none absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full  hover:bg-white/30 transition-colors z-10"
         onClick={scrollPrev}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
@@ -83,7 +83,7 @@ const EmblaCarousel = ({planet ,setPlanet} :{planet : string ,setPlanet : React.
       </div>
       
       <button
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full  hover:bg-white/30 transition-colors z-10"
+        className="cursor-none absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full  hover:bg-white/30 transition-colors z-10"
         onClick={scrollNext}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">

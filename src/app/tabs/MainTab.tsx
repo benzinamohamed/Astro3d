@@ -1,13 +1,13 @@
+"use client"
 import EmblaCarousel from '@/components/ui/carousel';
 import SolarSystem from '@/components/ui/SolarSystem';
 import React, { useState } from 'react'
-import Image from 'next/image';
 import { Data } from '../constants/Constatns';
 import { motion, AnimatePresence } from "framer-motion";
 
 function MainTab() {
     const [planet, setPlanet] = useState<string | null>(null);
-
+    
   return (
     <>
       <AnimatePresence mode="wait">
@@ -18,7 +18,7 @@ function MainTab() {
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
             transition={{ duration: 0.5 }}
-            className='flex flex-col h-full bg-[url(/Stars.png)] cursor-none'
+            className='flex flex-col h-full bg-[url(/Stars.png)] cursor-none select-none'
           >
 
             <button 
@@ -31,7 +31,7 @@ function MainTab() {
             </button>
 
          
-            <div className='flex flex-row flex-1/2 justify-center items-center'>
+            <div className='flex flex-row flex-1/2 justify-end items-center'>
               <div className='flex w-1/4'></div>
 
           
@@ -43,7 +43,7 @@ function MainTab() {
                     alt="Planet"
                     width={140}
                     height={140}
-                    className='col-start-3 row-start-1'
+                    className='col-start-3 row-start-1 scale-125'
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
@@ -55,7 +55,7 @@ function MainTab() {
                     alt="Planet Eclipse"
                     width={140}
                     height={140}
-                    className='col-start-3 row-start-1 absolute'
+                    className='col-start-3 row-start-1 scale-125 absolute'
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
@@ -71,12 +71,12 @@ function MainTab() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.5 }}
-                className='flex w-1/2 flex-col text-white p-2 md:p-8'
+                className='flex w-1/2 flex-col text-white p-4 md:p-8'
               >
-                <h1 className='text-2xl font-semibold '>
+                <h1 className='text-2xl font-semibold top-4'>
                   {Data.find(Planet => Planet.name.toLowerCase() === planet.replace(/^\/|\.png$/g, "").toLowerCase())?.name}
                 </h1>
-                <p className='text-pretty text-sm '>
+                <p className='text-balance text-sm font-thin opacity-90'>
                   {Data.find(Planet => Planet.name.toLowerCase() === planet.replace(/^\/|\.png$/g, "").toLowerCase())?.description}
                 </p>
               </motion.div>
