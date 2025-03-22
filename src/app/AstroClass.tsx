@@ -2,42 +2,19 @@
 
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { Html  } from '@react-three/drei';
-import { CardBody, CardContainer } from "@/components/ui/3d-card";
 import MainTab from './tabs/MainTab';
 import { Pointer } from "@/components/magicui/pointer";
 import WebIntro from '../components/ui/WebIntro';
 import SecondTab from './tabs/SecondTab';
+import ClassRoom from './Models/CLass3d';
+import ThreeDCardDemo from '@/components/ui/Tab';
+import ThirdTab from './tabs/ThirdTab';
 
 
 
 
-export function ThreeDCardDemo({ shouldMove, children }: { shouldMove: boolean, children: React.ReactNode }) {
-  return (
-    
-   <CardContainer className="cursor-none pointer-events-none max-h-9/12 max-w-11/12 min-w-[97%] inter-var hover:cursor-default">
-      <CardBody className={`cursor-none pointer-events-auto overflow-hidden backdrop-blur-xl relative group/card dark:hover:shadow-5xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.6] max-w-full min-w-8/12 sm:w-[30rem] max-h-9/12 rounded-xl  transition-all duration-300 ${shouldMove ? 'border-6' : 'border'}`}>
-          {children}
-      </CardBody>
-    </CardContainer>
-  );
-}
 
-function Model() {
-  const gltf = useLoader(GLTFLoader, '/anime_class_room.glb');
-  
-  
-  return (
-    <primitive 
-      object={gltf.scene} 
-      scale={[1, 1, 1]}
-      position={[1, -1, -3]}
-      
-    />
-  );
-}
 
 function Scene() {
   const mouse = useRef({ x: 10, y: 0});
@@ -61,12 +38,6 @@ function Scene() {
       setShouldMove(scaleTab1 || scaleTab2|| scaleTab3);
     }
   };
-
-
- 
-
- 
-
 
   React.useEffect(() => {
     window.addEventListener('keydown', handleEnterButton);
@@ -119,16 +90,12 @@ function Scene() {
     }
   });
 
-
-
-  
-
   return (
     <>
       <ambientLight intensity={2} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <Suspense fallback={<Html ><div>Loading...</div></Html>}>
-        <Model />
+        <ClassRoom />
         <Html  className='w-screen flex justify-center  pointer-events-none '  center position={[1, 0, 200]}  >
         <div ref={Tab1Ref}  className={`pointer-events-none  w-[60%] transition-transform duration-100 ease-out ${scaleTab1 ? 'scale-[1.5]' : 'scale-[1]'}`}>
           
@@ -147,6 +114,7 @@ function Scene() {
      
         <div ref={Tab3Ref} className={`w-[60%] transition-transform duration-100 ease-out ${scaleTab3 ? 'scale-[1.5]' : 'scale-[1]'}`}> 
           <ThreeDCardDemo shouldMove={shouldMove && scaleTab3}>
+            <ThirdTab/>
           </ThreeDCardDemo>
         </div> 
       _

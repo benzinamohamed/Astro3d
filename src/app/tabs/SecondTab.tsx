@@ -1,8 +1,20 @@
 "use client";
-import { CardItem } from '@/components/ui/3d-card';
-import React, { useEffect } from 'react'
+import React from 'react'
 import useSWR from "swr";
-import Image from 'next/image'
+
+type Post = {
+  name: string;
+  description: string;
+  href: string;
+  cta: string;
+  background: string;
+}
+type Result = {
+  title : string;
+  summary : string;
+  url : string;
+  image_url : string;
+}
 
  function SecondTab() {
   const fetcher = async (url: string): Promise<any> => {
@@ -20,14 +32,12 @@ import Image from 'next/image'
 
 
 
-  const features1 = data.results.map((post , index)=>({
+  const features : Post[] = data.results.map((post : Result )=>({
     name: post.title ,
     description : post.summary,
     href : post.url,
     cta : "learn more",
-    className : `col-span-${index+1}`,
     background :post.image_url
-
   }))
   
 
@@ -36,7 +46,7 @@ import Image from 'next/image'
   
   return (
     <div className="w-full h-full grid grid-cols-5 gap-2 p-2">
-    {features1.map((post, index) => (
+    {features.map((post:Post, index:number) => (
       <a
         key={index}
         className={`bg-black/30 rounded-xl relative overflow-hidden ${
