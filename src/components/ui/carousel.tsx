@@ -50,6 +50,7 @@ const EmblaCarousel = ({planet ,setPlanet} :{planet : string ,setPlanet : React.
     };
   }, [emblaApi, onSelect]);
 
+console.log(selectedIndex)
   return (
     <div className="select-none h-fit relative w-full max-w-5xl mx-auto px-4 pb-2">
       <button
