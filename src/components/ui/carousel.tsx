@@ -13,7 +13,7 @@ const EmblaCarousel = ({planet ,setPlanet} :{planet : string ,setPlanet : React.
     containScroll: 'trimSnaps',
   });
   const slides = [
-    { image: "/pluto.png", ellipse: "/plutoEc.svg" },
+    { image: "/Pluto.png", ellipse: "/plutoEc.svg" },
     { image: "/Jupiter.png", ellipse: null }, 
 { image: "/Neptune.png", ellipse: "/neptuneEc.svg" },
 { image: "/Uranus.png", ellipse: "/plutoEc.svg" },

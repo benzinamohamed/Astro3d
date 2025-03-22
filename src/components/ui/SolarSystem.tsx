@@ -16,7 +16,7 @@ function SolarSystem({ setPlanet }: { setPlanet: React.Dispatch<React.SetStateAc
       <div className="h-[85%] w-full flex items-end bg-[url('/Orbits.svg')] bg-center bg-cover relative">
         <CardItem onClick={()=>setPlanet("/pluto.png")} className="flex items-center hover:contrast-200  h-8 w-8 absolute top-[3.7%] left-[54%] lg:top-[3.7%] lg:left-[50%]">
           <MotionImage
-            src={"/pluto.png"}
+            src={"/Pluto.png"}
             width={10000}
             height={10000}
             quality={100}
